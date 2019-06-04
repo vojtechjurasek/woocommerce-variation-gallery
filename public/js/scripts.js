@@ -44,7 +44,7 @@ jQuery(document).ready(function($) {
           gallery.wc_product_gallery();
           variation_form.trigger("woocommerce_after_variation_has_changed");
         } else {
-          console.log("Error changin product variation gallery");
+          console.log("Error changing product variation gallery", result);
           // variation_form.trigger('woocommerce_after_variation_has_changed');
         }
       });
