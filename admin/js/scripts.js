@@ -20,6 +20,9 @@ jQuery(document).ready(function($) {
       selection.map(function(attachment) {
         attachment = attachment.toJSON();
         var field = gallery.find("input");
+        var imgSrc = attachment.sizes.hasOwnProperty(size)
+          ? attachment.sizes[size].url
+          : attachment.sizes["full"].url;
         field.val(field.val() + attachment.id + ";");
         gallery
           .find("ul.wvg-gallery-images")
@@ -27,7 +30,7 @@ jQuery(document).ready(function($) {
             '<li data-id="' +
               attachment.id +
               '"><img src=' +
-              attachment.sizes[size].url +
+              imgSrc +
               " /></li>"
           );
       });
