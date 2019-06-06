@@ -14,15 +14,6 @@ jQuery(document).ready(function($) {
         .eq(0)
         .val();
 
-      //define ajax request for gallery full rebuild
-      var imagesHeight = $(".product")
-        .eq(0)
-        .height();
-
-      $(".product")
-        .eq(0)
-        .css("height", imagesHeight);
-
       var ajaxData = {
         action: "wvg_change_images",
         variation: variation
@@ -32,26 +23,18 @@ jQuery(document).ready(function($) {
         .find(".images")
         .eq(0);
 
-      // gallery.css("opacity", "0.1");
-
       $.post(wvg_ajax.ajax_url, ajaxData, function(result) {
         if (result != "error") {
           variation_form.trigger("woocommerce_before_variation_has_changed");
           gallery.replaceWith(result);
-          gallery = $(".product")
-            .find(".images")
-            .eq(0);
-          gallery.wc_product_gallery();
+          $(".woocommerce-product-gallery").each(function() {
+            $(this).wc_product_gallery();
+          });
           variation_form.trigger("woocommerce_after_variation_has_changed");
         } else {
           console.log("Error changing product variation gallery", result);
-          // variation_form.trigger('woocommerce_after_variation_has_changed');
         }
       });
-
-      $(".product")
-        .eq(0)
-        .css("height", "auto");
     });
 
     variation_form.on("wc_variations_image_update");
