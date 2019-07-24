@@ -123,8 +123,14 @@ if (!function_exists('wvg_change_images')) {
       $result .= '<div class="' . esc_attr(implode(' ', array_map('sanitize_html_class', $wrapper_classes))) . '" data-columns="' . esc_attr($columns) . '" style="opacity: 0; transition: opacity .25s ease-in-out;">
 				<figure class="woocommerce-product-gallery__wrapper">';
       $html  = wc_get_gallery_image_html($post_thumbnail_id, true);
-      $result .= apply_filters('woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id);
+      if (function_exists('custom_wc_get_gallery_image_html')) {
+        $result .= custom_wc_get_gallery_image_html($post_thumbnail_id, true);
+      } else {
+        $result .= apply_filters('woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id);
+      }
+
       error_log(print_r($gallery_ids, true));
+
       foreach ($gallery_ids as $attachment_id) {
         if (!empty($attachment_id)) {
           if (function_exists('custom_wc_get_gallery_image_html')) {
