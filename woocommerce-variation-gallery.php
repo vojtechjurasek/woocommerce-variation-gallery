@@ -125,7 +125,11 @@ if (!function_exists('wvg_change_images')) {
       error_log(print_r($gallery_ids, true));
       foreach ($gallery_ids as $attachment_id) {
         if (!empty($attachment_id)) {
-          $result .= apply_filters('woocommerce_single_product_image_thumbnail_html', wc_get_gallery_image_html($attachment_id), $attachment_id);
+          if (function_exists('custom_wc_get_gallery_image_html')) {
+            $result .= apply_filters('woocommerce_single_product_image_thumbnail_html', custom_wc_get_gallery_image_html($attachment_id), $attachment_id);
+          } else {
+            $result .= apply_filters('woocommerce_single_product_image_thumbnail_html', wc_get_gallery_image_html($attachment_id), $attachment_id);
+          }
         }
       }
       $result .= '</figure></div>';
