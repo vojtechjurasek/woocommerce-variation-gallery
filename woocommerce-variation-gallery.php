@@ -5,11 +5,13 @@ Description: Add gallery of images to WooCommerce product variations.
 Author: Vojtech Jurasek
 Text Domain: woocommerce-variation-gallery
 Domain Path: /languages
-Version: 1.0.6
+Version: 1.0.7
 */
 
 add_action('init', 'wvg_add_custom_fields');
 register_activation_hook(__FILE__, 'wvg_add_custom_fields');
+
+require_once('custom-wc-get-gallery-image-html.php');
 
 if (!function_exists('wvg_add_custom_fields')) {
   function wvg_add_custom_fields()
